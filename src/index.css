@@ -51,13 +51,6 @@ nav {
   position: relative;
 }
 
-.caret-icon {
-  border: 3px solid #000;
-  width: 30px;  
-  height: 30px;
-  cursor: pointer;
-}
-
 .dropdown {
   position: absolute;
   left: 0;
@@ -94,4 +87,148 @@ nav {
 
 .dropdown.open {
   display: block;
+}
+
+.caret-icon {
+  border: 3px solid #000;
+  width: 30px;  
+  height: 30px;
+  cursor: pointer;
+}
+
+/***************** search filters ******************/
+.filters {
+  position: relative;
+  margin-top: 10px;
+  background: #ddd;
+  padding: 10px;
+}
+
+.filters.closed {
+  height: 50px;
+  overflow: hidden;
+}
+
+.top-filter-top,
+.top-filter-middle {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.top-filter-item {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.search-in,
+.lang-topic {
+  display: flex;
+  flex: auto;
+  align-items: center;
+}
+
+.bottom-filter {
+  margin-top: 20px;
+}
+
+.bottom-filter-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.bottom-filter-bottom {
+  display: flex;
+}
+
+.stars, .created, .size {
+  background: #fff;
+  padding: 0 10px 10px;
+  margin: 0 0 10px;
+}
+
+.size {
+  margin: 0;
+}
+
+.stars p, .created p, .size p {
+  width: 65px;
+}
+
+.stars-top, .created-top, .size-top {
+  display: flex;
+  align-items: center;
+}
+
+.radio-btns {
+  display: flex;  
+}
+
+.radio-btns-item {
+  display: flex;
+  margin-right: 4px;
+}
+
+.radio-btns-item:last-child {
+  margin-right: 0;
+}
+
+.search-reset {
+  display: flex;
+  position: absolute;
+  top: 6px;
+  right: 250px;
+}
+
+.search-reset.advanced {  
+  bottom: 10px;
+  right: 10px;
+  top: initial;
+}
+
+.search-reset button {
+  width: 50px;
+  padding: 2px 0;
+  margin-left: 5px;
+}
+
+.FcSearch {
+  font-size: 18px;
+}
+
+
+.chevrons-icon {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #aaa;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+
+/***************** search filter labels ******************/
+label {
+  display: inline-block;
+  width: 90px;
+  white-space: nowrap;
+  text-align: right;
+}
+
+label[for=in] {
+  width: 40px;
+}
+
+label[for=topic] {
+  width: 50px;
+}
+
+.radio-btns label, 
+label[for=created-date], 
+label[for=stars-num], 
+label[for=number] {
+  width: auto;
 }

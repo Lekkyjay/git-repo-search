@@ -1,9 +1,12 @@
 import React from 'react'
+import SearchFilter from '../components/SearchFilter'
+import SearchResults from '../components/SearchResults'
 
 export default function Search() {
   return (
     <div>
-      <h1>Search Page</h1>
+      <SearchFilter />
+      <SearchResults />
     </div>
   )
 }
