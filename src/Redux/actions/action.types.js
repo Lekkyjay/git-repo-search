@@ -1,0 +1,4 @@
+export const GET_REPOS = "GET_REPOS"
+export const REPO_LIST_REQUEST = "REPO_LIST_REQUEST"
+export const REPO_LIST_SUCCESS = "REPO_LIST_SUCCESS"
+export const REPO_LIST_FAIL = "REPO_LIST_FAIL"

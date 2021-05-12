@@ -1,9 +1,21 @@
 import React from 'react'
 
-export default function SearchResults() {
+export default function SearchResults({repos, loading}) {
   return (
-    <div>
-      <h1>Search Results Component</h1>
-    </div>
+    <>
+    <h1>Search results:</h1>
+    {loading 
+      ? (
+          <div>Loading ...</div>
+        )
+      : (
+          <ul>
+            {repos.items.map(repo => (
+              <li key={repo.id}>{ repo.name }</li>
+            ))}
+          </ul>
+        )
+    }       
+    </> 
   )
 }
