@@ -4,15 +4,27 @@ import { BiChevronsDown, BiChevronsUp } from 'react-icons/bi'
 import { getRepos } from '../Redux/actions/repo.actions'
 import SearchResults from './SearchResults'
 import { useDispatch, useSelector } from 'react-redux'
+import { FaTimes } from 'react-icons/fa'
+
+const Errors = ({errors, closeErrors}) => {
+  return (
+    <>
+      {errors.map(e => (      
+       <p key={e.name}>{e.name + ' ' + e.msg}</p>              
+    ))}
+    <FaTimes className="close-errors" onClick={closeErrors} />
+    </>
+  )
+}
 
 export default function SearchFilter() {
   const [advanced, setAdvanced] = useState(false)
   const [starsBtw, setStarsBtw] = useState(false)
   const [createdBtw, setCreatedBtw] = useState(false)
   const [sizeBtw, setSizeBtw] = useState(false)
-  const [queryString, setQueryString] = useState('react+in:name+user:lekkyjay')
-  
+  const [queryString, setQueryString] = useState('react+in:name+user:lekkyjay')  
   const [errs, setErrs] = useState([])
+  const [showErrors, setShowErrors] = useState(false)
 
   const initialState = {
     searchBy: '', 
@@ -137,6 +149,7 @@ export default function SearchFilter() {
       const errMsg = {name: 'searchBy', msg: ' field must be minimum 3 characters'}
       tempErrs.push(errMsg)
       setErrs(tempErrs)
+      console.log('searchBy error')
     }
     //simple mode
     if (!advanced && (
@@ -144,7 +157,7 @@ export default function SearchFilter() {
         !formFields.inDesc.checked && 
         !formFields.inReadMe.checked)
       ) {
-        console.log('simple queryString:', queryString)
+        console.log('simple mode')
         const errMsg = {name: 'In checkbox:', msg: ' please select atleast one of the checkboxes'}
         tempErrs.push(errMsg)
         setErrs(tempErrs)
@@ -155,7 +168,7 @@ export default function SearchFilter() {
           !formFields.inDesc.checked && 
           !formFields.inReadMe.checked)
         ) {
-            console.log('simple queryString:', queryString)
+            console.log('advanced mode 1')
             const errMsg = {name: 'In checkbox:', msg: ' please select atleast one of the checkboxes'}
             tempErrs.push(errMsg)
             setErrs(tempErrs)
@@ -163,17 +176,23 @@ export default function SearchFilter() {
     //advanced mode 2
     if (advanced && (
       (formFields.userName !== '' && formFields.userName.length < 3) ||
-      (formFields.userName !== '' && formFields.userName.length < 3) ||
-      (formFields.userName !== '' && formFields.userName.length < 3) ||
-      (formFields.userName !== '' && formFields.userName.length < 3)      
+      (formFields.language !== '' && formFields.language.length < 3) ||
+      (formFields.topic !== '' && formFields.topic.length < 3) ||
+      (formFields.org !== '' && formFields.org.length < 3)      
     )) {
+      console.log('advanced mode 2')
       const errMsg = {
         name: 'Textfields:', 
-        msg: '"User name, Language, Topic or Organisation" must be min 3 chars when provided'
+        msg: '"UserName, Language, Topic or Organisation" must be min 3 chars when provided'
       }
       tempErrs.push(errMsg)
       setErrs(tempErrs)
+      console.log('errs:', errs)
+      console.log('tempErrs:', tempErrs)
     }
+    // if (tempErrs.length !== 0) {
+    //   setShowErrors(true)
+    // }
   }
 
   const generateQueryString = (fields) => {
@@ -203,10 +222,10 @@ export default function SearchFilter() {
           '+stars:>' + formFields.starsNumBtw.minStar + formFields.starsNumBtw.maxStar : ''
       }
       if (key === 'created') {
-        qStr += formFields[key] === 'bf' ? '+created:<' + formFields.sizeNum : ''
-        qStr += formFields[key] === 'oob' ? '+created:<=' + formFields.sizeNum : ''
-        qStr += formFields[key] === 'af' ? '+created:>' + formFields.sizeNum : ''
-        qStr += formFields[key] === 'ooa' ? '+created:>=' + formFields.sizeNum : ''
+        qStr += formFields[key] === 'bf' ? '+created:<' + formFields.createdDate : ''
+        qStr += formFields[key] === 'o-o-b' ? '+created:<=' + formFields.createdDate : ''
+        qStr += formFields[key] === 'af' ? '+created:>' + formFields.createdDate : ''
+        qStr += formFields[key] === 'o-o-a' ? '+created:>=' + formFields.createdDate : ''
         qStr += formFields[key] === 'btw' ? 
           '+created:>' + formFields.createdDateBtw.fromDate + formFields.createdDateBtw.toDate : ''
       }
@@ -216,9 +235,9 @@ export default function SearchFilter() {
         qStr += formFields[key] === 'gt' ? '+stars:>' + formFields.sizeNum : ''
         qStr += formFields[key] === 'btw' ? 
           '+size:>' + formFields.sizeNumBtw.minSize + formFields.sizeNumBtw.maxSize : ''
-      }
-      setQueryString(qStr)     
+      }        
     })
+    setQueryString(qStr)
     console.log('qStr:', qStr)
   }
 
@@ -226,18 +245,34 @@ export default function SearchFilter() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
     tempErrs = []
-    // validateFormFields()
-    generateQueryString(formFields)
-    console.log('formFields:', formFields)
-    console.log('queryString:', queryString)
+    validateFormFields()
+    if (tempErrs.length !== 0) {
+      setShowErrors(true)
+      return
+    }
+
+    // if (errs.length !== 0) {
+    //   setShowErrors(true)
+    //   return
+    // }
+    
+    // generateQueryString(formFields)
+  }
+
+  const closeErrors = () => {
+    setShowErrors(false)
   }
   
 
   return (
     <>
-    {errs.length > 0 ? errs[0].name + errs[0].msg : ''}
+    {/* {errs.length > 0 ? errs[0].name + errs[0].msg : ''} */}
       <section className={ advanced ? "filters container" : "filters container closed" }>
+        <div className={showErrors ? "errors show-errors" : "errors"}>
+          {errs.length > 0 && <Errors errors={errs} closeErrors={closeErrors} />}
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="top-filter">
             <div className="top-filter-top">
@@ -321,19 +356,19 @@ export default function SearchFilter() {
                   <p>Created</p>
                   <div className="radio-btns">
                     <div className="radio-btns-item">
-                      <input type="radio" name="created" value="before" onChange={handleCreated} />
+                      <input type="radio" name="created" value="bf" onChange={handleCreated} />
                       <label htmlFor="before">before</label>
                     </div>
                     <div className="radio-btns-item">
-                      <input type="radio" name="created" value="on-before" onChange={handleCreated} />
+                      <input type="radio" name="created" value="o-o-b" onChange={handleCreated} />
                       <label htmlFor="on-or-before">on or before</label>
                     </div>
                     <div className="radio-btns-item">
-                      <input type="radio" name="created" value="after" onChange={handleCreated} />
+                      <input type="radio" name="created" value="af" onChange={handleCreated} />
                       <label htmlFor="after">after</label>
                     </div>
                     <div className="radio-btns-item">
-                      <input type="radio" name="created" value="on-after" onChange={handleCreated} />
+                      <input type="radio" name="created" value="o-o-a" onChange={handleCreated} />
                       <label htmlFor="on-or-after">on or after</label>
                     </div>
                     <div className="radio-btns-item">
