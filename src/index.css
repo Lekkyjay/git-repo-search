@@ -249,6 +249,22 @@ nav {
   display: flex;
 }
 
+.bottom-filter-top .stars-bottom input,
+.bottom-filter-bottom .size-bottom input {
+  width: 60px;
+  margin: 0 30px 0 10px;
+}
+
+.bottom-filter-top .stars-bottom input[type="range"],
+.bottom-filter-bottom .size-bottom input[type="range"] {
+  margin-right: 10px;
+}
+
+/* .bottom-filter-bottom .size-bottom .range {
+  display: flex;
+  justify-content: space-between;
+} */
+
 .stars, .created, .size {
   background: #fff;
   padding: 0 10px 10px;
