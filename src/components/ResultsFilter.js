@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { sortRepos } from '../Redux/actions/repo.actions'
 
-export default function ResultsFilter() {
+export default function ResultsFilter({ total }) {
   const repoState = useSelector((state) => state)
   const { qStr } = repoState
   const dispatch = useDispatch()
@@ -84,7 +84,7 @@ export default function ResultsFilter() {
         <label htmlFor="sort-by">asc</label>
       </div>
       <div className="total-results">
-        <p>Total Results: 1500</p>
+        <p>Total Results: { total }</p>
       </div>
     </div>
   )

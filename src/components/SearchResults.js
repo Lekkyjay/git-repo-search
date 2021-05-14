@@ -1,22 +1,15 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-export default function SearchResults() {
-  const repoState = useSelector((state) => state)
-  const { repos, loading } = repoState
-
-  console.log('repos:', repos)
-  console.log('repos length:', repos?.length)
+export default function SearchResults({ repos, loading }) {  
 
   return (
     <>    
     {loading 
-      ? (
-          <div>Loading ...</div>
-        )
+      ? (<div>Loading ...</div>)
       : (
           <>
-            {repos?.map(repo => (
+            {repos && repos.map(repo => (
               <div className="search-results" key={repo.id}> 
                 <div className="repo-name result">
                   <p>{ repo.name }</p>
