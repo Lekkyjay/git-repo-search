@@ -20,7 +20,7 @@ export default function SearchResults() {
               <div class="search-results" key={repo.id}> 
                 <div class="repo-name result">
                   <p>{ repo.name }</p>
-                  <p><a href={repo.url} target="_blank">{ repo.full_name }</a></p>
+                  <p><a href={repo.url} target="_blank" rel="noreferrer">{ repo.full_name }</a></p>
                 </div>
                 <div class="repo-stars result">
                   <p>{ repo.stargazers_count }</p>

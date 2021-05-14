@@ -1,16 +1,31 @@
-import { GET_REPOS, REPO_LIST_REQUEST } from "../actions/action.types";
+import { GET_REPOS_FAIL, GET_REPOS_REQUEST, GET_REPOS_SUCCESS } from "../actions/action.types";
 
-export const reposReducer = (state = { repos: [] }, action) => {
+const initialState = {
+  repos: [],
+  loading: false,
+  error: null
+}
+
+export const reposReducer = (state = initialState, action) => {
   switch (action.type) {
-    case REPO_LIST_REQUEST:
+    case GET_REPOS_REQUEST:
       return { 
+        ...state,
         loading: true, 
-        repos: []
+        error: null
       }
-    case GET_REPOS:
+    case GET_REPOS_SUCCESS:
       return { 
+        ...state,
         loading: false, 
-        repos: action.payload.items.slice(0, 10) 
+        repos: action.payload
+      }
+    case GET_REPOS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        repos: [],
+        error: action.payload
       }
     default:
       return state
