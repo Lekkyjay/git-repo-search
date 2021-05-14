@@ -23,12 +23,12 @@ export default function SearchResults() {
                   <p><a href={repo.url} target="_blank" rel="noreferrer">{ repo.full_name }</a></p>
                 </div>
                 <div class="repo-stars result">
-                  <p>{ repo.stargazers_count }</p>
-                  <p>{ repo.watchers }</p>
+                  <p>Stars: { repo.stargazers_count }</p>
+                  <p>Watchers: { repo.watchers }</p>
                 </div>
                 <div class="forks result">
-                  <p>{ repo.forks }</p>
-                  <p>{ repo.open_issues }</p>
+                  <p>Forks: { repo.forks }</p>
+                  <p>Issues: { repo.open_issues }</p>
                 </div>
                 <div class="repo-desc result">
                   <p>{ repo.description }</p>
@@ -38,8 +38,8 @@ export default function SearchResults() {
                   <span>html</span>
                 </div>
                 <div class="repo-created result">
-                  <p>created at: { repo.created_at }</p>
-                  <p>updated at: { repo.updated_at }</p>
+                  <p>created at: { new Date(repo.created_at).toLocaleDateString() }</p>
+                  <p>updated at: { new Date(repo.updated_at).toLocaleDateString() }</p>
                 </div>
                 <div class="repo-owner result">
                   <p>By: { repo.owner.login }</p>

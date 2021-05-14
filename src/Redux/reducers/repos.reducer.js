@@ -3,6 +3,7 @@ import { GET_REPOS_FAIL, GET_REPOS_REQUEST, GET_REPOS_SUCCESS } from "../actions
 const initialState = {
   repos: [],
   loading: false,
+  qStr: '',
   error: null
 }
 
@@ -18,7 +19,8 @@ export const reposReducer = (state = initialState, action) => {
       return { 
         ...state,
         loading: false, 
-        repos: action.payload
+        repos: action.payload.repos,
+        qStr:action.payload.qStr
       }
     case GET_REPOS_FAIL:
       return {

@@ -9,7 +9,7 @@ export const getRepos = (qStr) => async (dispatch) => {
 
     dispatch({
       type: GET_REPOS_SUCCESS,
-      payload: repos
+      payload: {repos, qStr}
     })
   } catch (error) {
         dispatch({

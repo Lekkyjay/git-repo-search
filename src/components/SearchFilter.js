@@ -256,7 +256,7 @@ export default function SearchFilter() {
     //   return
     // }
     
-    // generateQueryString(formFields)
+    generateQueryString(formFields)
   }
 
   const closeErrors = () => {
@@ -314,19 +314,19 @@ export default function SearchFilter() {
                   <p>Stars</p>
                   <div className="radio-btns">
                     <div className="radio-btns-item">
-                      <input type="radio" name="stars" value="eq" checked={false} onChange={handleStars} />
+                      <input type="radio" name="stars" value="eq" onChange={handleStars} />
                       <label htmlFor="equal">equal</label>
                     </div>
                     <div className="radio-btns-item">
-                      <input type="radio" name="stars" value="gt" checked={false} onChange={handleStars} />
+                      <input type="radio" name="stars" value="gt" onChange={handleStars} />
                       <label htmlFor="greater-than">greater than</label>
                     </div>
                     <div className="radio-btns-item">
-                      <input type="radio" name="stars" value="lt" checked={false} onChange={handleStars} />
+                      <input type="radio" name="stars" value="lt" onChange={handleStars} />
                       <label htmlFor="less-than">less than</label>
                     </div>
                     <div className="radio-btns-item">
-                      <input type="radio" name="stars" value="btw" checked={false} onChange={handleStars} />
+                      <input type="radio" name="stars" value="btw" onChange={handleStars} />
                       <label htmlFor="between">between</label>
                     </div>
                   </div>
