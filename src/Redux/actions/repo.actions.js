@@ -11,7 +11,8 @@ export const getRepos = (qStr) => async (dispatch) => {
   try {
     const res = await fetch('https://api.github.com/search/repositories?q=' + qStr)
     const data = await res.json()
-    const repos = data.items.slice(0, 10)
+    const repos = data.items
+    // const repos = data.items.slice(0, 10)
 
     dispatch({
       type: GET_REPOS_SUCCESS,
@@ -33,7 +34,7 @@ export const sortRepos = (sortStr) => async (dispatch, getState) => {
   try {
     const res = await fetch('https://api.github.com/search/repositories?q=' + qStr + sortStr)
     const data = await res.json()
-    const repos = data.items.slice(0, 10)
+    const repos = data.items
 
     dispatch({
       type: SORT_REPOS_SUCCESS,

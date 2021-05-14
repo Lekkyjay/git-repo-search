@@ -9,6 +9,7 @@ export default function ResultsFilter() {
   // console.log('qStr from state:', qStr)
   const [sortDefault, setSortDefault] = useState(true)
   const [sortStr, setSortStr] = useState('')
+  const [orderStr, setOrderStr] = useState('')
 
   
   const handleSort = (e) => {
@@ -19,28 +20,49 @@ export default function ResultsFilter() {
       setSortDefault(true)
       setSortStr('')
       tempStr = ''
-    }
-    if (value === 'stars') {
+    } else {
       setSortDefault(false)
-      setSortStr('&sort=stars')
-      tempStr = '&sort=stars'
+      setSortStr('&sort=' + value)
+      tempStr = '&sort=' + value
     }
-    if (value === 'forks') {
-      setSortDefault(false)
-      setSortStr('&sort=forks')
-      tempStr = '&sort=forks'
-    }    
+
+
+    // if (value === 'stars') {
+    //   setSortDefault(false)
+    //   setSortStr('&sort=stars')
+    //   tempStr = '&sort=stars'
+    // }
+    // if (value === 'forks') {
+    //   setSortDefault(false)
+    //   setSortStr('&sort=forks')
+    //   tempStr = '&sort=forks'
+    // }    
     // console.log('tempStr:', tempStr)
     console.log('sortStr:', sortStr)
-    dispatch(sortRepos(tempStr))
+    dispatch(sortRepos(tempStr + orderStr))
   }
 
   const handleOrderBy = (e) => {
     let tempStr = ''
     const { name, value } = e.target
-    if (sortStr !== '') {
-      if (value === 'desc') {}
+    if (sortStr === '') {
+      setOrderStr('&order=' + value)
+      tempStr = ''
+    } else {
+      setOrderStr('&order=' + value)
+      tempStr = sortStr + '&order=' + value
     }
+
+    // if (value === 'asc' && sortStr !== '') {
+    //   setOrderStr('&order=asc')
+    //   tempStr = sortStr + '&order=asc'
+    // }
+    // if (value === 'desc' && sortStr !== '') {
+    //   setOrderStr('&order=desc')
+    //   tempStr = sortStr + '&order=desc'
+    // }
+
+    dispatch(sortRepos(tempStr))
   }
 
   return (
