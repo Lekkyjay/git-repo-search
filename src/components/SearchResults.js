@@ -1,6 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
-export default function SearchResults({repos, loading}) {
+export default function SearchResults() {
+  const repoState = useSelector((state) => state)
+  const { repos, loading } = repoState
+
   return (
     <>
     <h1>Search results:</h1>

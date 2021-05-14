@@ -41,9 +41,7 @@ export default function SearchFilter() {
 
   let tempErrs = []
 
-  const dispatch = useDispatch()
-  const repoState = useSelector((state) => state)
-  const { repos, loading } = repoState
+  const dispatch = useDispatch()  
 
   useEffect(() => {
     dispatch(getRepos(queryString))
@@ -447,7 +445,6 @@ export default function SearchFilter() {
           }
         </form>      
       </section>
-      {repos && <SearchResults repos={repos} loading={loading} /> }      
     </>
   )
 }
