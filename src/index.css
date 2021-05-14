@@ -500,3 +500,23 @@ nav {
   width: 50%;
   border-radius: 50%;
 }
+
+/******************************** Paginate ******************************/
+.paginate {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.paginate-icons {
+  margin-left: 10px;
+  display: flex;
+}
+
+.paginate-icon {
+  color: #eee;
+  background: #bbb;
+  margin-right: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
