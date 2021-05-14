@@ -5,8 +5,8 @@ export default function SearchResults() {
   const repoState = useSelector((state) => state)
   const { repos, loading } = repoState
 
-  console.log('repos:', repos?.items)
-  console.log('repos length:', repos?.items?.length)
+  console.log('repos:', repos)
+  console.log('repos length:', repos?.length)
 
   return (
     <>    
@@ -16,36 +16,34 @@ export default function SearchResults() {
         )
       : (
           <>
-            {repos?.items.map(repo => (
+            {repos?.map(repo => (
               <div class="search-results" key={repo.id}> 
                 <div class="repo-name result">
-                  <strong>Repo name</strong>
                   <p>{ repo.name }</p>
+                  <p><a href={repo.url} target="_blank">{ repo.full_name }</a></p>
                 </div>
                 <div class="repo-stars result">
-                  <p>stars 5</p>
-                  <p>watchers 5</p>
+                  <p>{ repo.stargazers_count }</p>
+                  <p>{ repo.watchers }</p>
                 </div>
                 <div class="forks result">
-                  <p>forks 5</p>
-                  <p>Issues 5</p>
+                  <p>{ repo.forks }</p>
+                  <p>{ repo.open_issues }</p>
                 </div>
                 <div class="repo-desc result">
-                  <p>
-                    repo description text will go here
-                    repo description text will go here     
-                  </p>
+                  <p>{ repo.description }</p>
                 </div>
                 <div class="repo-tags result">
+                  <span>{ repo.language }</span>
                   <span>html</span>
-                  <span>Javascript</span>
                 </div>
                 <div class="repo-created result">
-                  <p>created at: 2020.05.01</p>
-                  <p>updated at: 2020.05.01</p>
+                  <p>created at: { repo.created_at }</p>
+                  <p>updated at: { repo.updated_at }</p>
                 </div>
                 <div class="repo-owner result">
-                  <p>By: Owner name</p>
+                  <p>By: { repo.owner.login }</p>
+                  <img src={repo.owner.avatar_url} alt="" />
                 </div>
               </div>
             ))}

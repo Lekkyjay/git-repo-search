@@ -495,3 +495,8 @@ nav {
 .repo-created, .repo-stars, .repo-forks {
   font-size: 14px;
 }
+
+.repo-owner img {
+  width: 50%;
+  border-radius: 50%;
+}

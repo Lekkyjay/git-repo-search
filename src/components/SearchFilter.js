@@ -9,7 +9,7 @@ const Errors = ({errors, closeErrors}) => {
   return (
     <>
       {errors.map(e => (      
-       <p key={e.name}>{e.name + ' ' + e.msg}</p>              
+        <p key={e.name}>{e.name + ' ' + e.msg}</p>              
     ))}
     <FaTimes className="close-errors" onClick={closeErrors} />
     </>
