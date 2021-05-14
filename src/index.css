@@ -333,25 +333,25 @@ nav {
 
 
 /***************** search filter labels ******************/
-label {
+.search-filter-form label {
   display: inline-block;
   width: 90px;
   white-space: nowrap;
   text-align: right;
 }
 
-label[for=in] {
+.search-filter-form label[for=in] {
   width: 40px;
 }
 
-label[for=topic] {
+.search-filter-form label[for=topic] {
   width: 50px;
 }
 
-.radio-btns label, 
-label[for=created-date], 
-label[for=stars-num], 
-label[for=number] {
+.search-filter-form .radio-btns label, 
+.search-filter-form label[for=created-date], 
+.search-filter-form label[for=stars-num], 
+.search-filter-form label[for=number] {
   width: auto;
 }
 
@@ -439,4 +439,59 @@ label[for=number] {
   .stars, .created, .size {
     width: 100%;
   }  
+}
+
+
+/*****************Results filter**************************/
+.search-results-filter { 
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+}
+
+.order {
+  flex: 1;
+  margin-left: 20px;
+}
+
+
+ /*****************Results ***********************/
+.search-results-container {
+  background: #eee;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.search-results {
+  display: grid;
+  background: #ddd;
+  grid-gap: 5px;
+  grid-template-columns: 2fr 1fr 1fr 3fr 2fr 1fr 2fr;
+  margin-bottom: 6px;
+  /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
+  /* grid-template-rows: 200px; */
+ /*  padding: 0 5px; */
+}
+
+.search-results .result {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-results .result p {
+  margin: 5px;
+}
+
+.search-results .repo-tags span {
+  display: inline-block;
+  background: #def;
+  border-radius: 20%;
+  margin: 5px;
+  font-size: 14px;
+}
+
+.repo-created, .repo-stars, .repo-forks {
+  font-size: 14px;
 }

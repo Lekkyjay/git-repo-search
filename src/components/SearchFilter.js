@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FcSearch } from 'react-icons/fc'
 import { BiChevronsDown, BiChevronsUp } from 'react-icons/bi'
 import { getRepos } from '../Redux/actions/repo.actions'
-import SearchResults from './SearchResults'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { FaTimes } from 'react-icons/fa'
 
 const Errors = ({errors, closeErrors}) => {
@@ -233,7 +232,8 @@ export default function SearchFilter() {
         qStr += formFields[key] === 'gt' ? '+stars:>' + formFields.sizeNum : ''
         qStr += formFields[key] === 'btw' ? 
           '+size:>' + formFields.sizeNumBtw.minSize + formFields.sizeNumBtw.maxSize : ''
-      }        
+      }       
+      return qStr 
     })
     setQueryString(qStr)
     console.log('qStr:', qStr)
@@ -271,7 +271,7 @@ export default function SearchFilter() {
         <div className={showErrors ? "errors show-errors" : "errors"}>
           {errs.length > 0 && <Errors errors={errs} closeErrors={closeErrors} />}
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="search-filter-form">
           <div className="top-filter">
             <div className="top-filter-top">
               <div className="search-by top-filter-item">
