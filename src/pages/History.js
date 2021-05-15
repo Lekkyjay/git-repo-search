@@ -6,14 +6,13 @@ export default function History() {
   const [index, setIndex] = useState(1)
   const repoState = useSelector((state) => state)
   const { history, loading } = repoState
-  console.log('history:', history)
 
   return (
     <div className="history">
       <div className="history-left">
         <p className="count">Total requests: {history.length}</p>
         {history && history.map((item, idx) => (
-          <div className="history-query active" key={idx}>
+          <div className="history-query active" key={idx} onClick={()=>setIndex(idx)}>
             <p>{ item.qStr }</p>
           </div>
         ))}
