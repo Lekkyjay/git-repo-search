@@ -7,14 +7,7 @@ import {
   SORT_REPOS_SUCCESS 
 } from "../actions/action.types";
 
-const initialState = {
-  repos: [],
-  loading: false,
-  qStr: '',
-  error: null
-}
-
-export const reposReducer = (state = initialState, action) => {
+export const reposReducer = (state, action) => {
   switch (action.type) {
     case GET_REPOS_REQUEST:
       return { 

@@ -7,13 +7,14 @@ import {
   SORT_REPOS_SUCCESS 
 } from "./action.types"
 
-export const getRepos = (qStr) => async (dispatch) => {
+export const getRepos = (qStr) => async (dispatch, getState) => {
   dispatch({ type: GET_REPOS_REQUEST })
+  const history = getState().history  
   try {
     const res = await fetch('https://api.github.com/search/repositories?q=' + qStr)
     const data = await res.json()
-    const repos = data.items
-    const history = [{ qStr, repos }]
+    const repos = data.items    
+    history.push({qStr, repos})
     localStorage.setItem('history', JSON.stringify(history))    
 
     dispatch({

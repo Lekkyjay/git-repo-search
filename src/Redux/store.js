@@ -4,7 +4,13 @@ import { reposReducer } from './reducers/repos.reducer'
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const initialState = {}
+const initialState = {
+  repos: [],
+  loading: false,
+  qStr: '',
+  history: JSON.parse(localStorage.getItem('history')) || [],
+  error: null
+}
 
 const store = createStore(reposReducer, initialState, composeEnhancer(applyMiddleware(thunk)))
 
