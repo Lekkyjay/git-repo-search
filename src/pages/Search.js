@@ -14,9 +14,9 @@ export default function Search() {
 
   const indexOfLastPost = currentPage * reposPerPage
   const indexOfFirstPost = indexOfLastPost - reposPerPage
-  const currentRepos = repos.slice(indexOfFirstPost, indexOfLastPost)
+  const currentRepos = repos?.slice(indexOfFirstPost, indexOfLastPost)
   
-  const totalPage = Math.ceil(repos.length/reposPerPage)
+  const totalPage = Math.ceil(repos?.length/reposPerPage)
 
   const nextPage = () => {
     (currentPage === totalPage) ? setCurrentPage(1) : setCurrentPage(currentPage + 1)
@@ -30,7 +30,7 @@ export default function Search() {
     <div>
       <SearchFilter />
       <div className="search-results-container container">
-        <ResultsFilter total={repos.length} />
+        <ResultsFilter total={repos?.length} />
         <SearchResults repos={currentRepos} loading={loading} />
         <Pagination 
           prevPage={prevPage}
