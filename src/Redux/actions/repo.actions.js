@@ -2,6 +2,7 @@ import {
   GET_REPOS_FAIL, 
   GET_REPOS_REQUEST, 
   GET_REPOS_SUCCESS, 
+  SORT_REPOS_FAIL, 
   SORT_REPOS_REQUEST,
   SORT_REPOS_SUCCESS 
 } from "./action.types"
@@ -12,17 +13,19 @@ export const getRepos = (qStr) => async (dispatch) => {
     const res = await fetch('https://api.github.com/search/repositories?q=' + qStr)
     const data = await res.json()
     const repos = data.items
-    // const repos = data.items.slice(0, 10)
+    const history = [{ qStr, repos }]
+    localStorage.setItem('history', JSON.stringify(history))    
 
     dispatch({
       type: GET_REPOS_SUCCESS,
       payload: {repos, qStr}
     })
-  } catch (error) {
-        dispatch({
-          type: GET_REPOS_FAIL,
-          payload: {errMsg: 'Something went wrong. Please try again later'}
-        })
+  } 
+  catch (error) {
+    dispatch({
+      type: GET_REPOS_FAIL,
+      payload: {errMsg: 'Something went wrong. Please try again later'}
+    })
   }
 }
 
@@ -40,10 +43,11 @@ export const sortRepos = (sortStr) => async (dispatch, getState) => {
       type: SORT_REPOS_SUCCESS,
       payload: {repos}
     })
-  } catch (error) {
-        dispatch({
-          type: GET_REPOS_FAIL,
-          payload: {errMsg: 'Something went wrong. Please try again later'}
-        })
+  } 
+  catch (error) {
+    dispatch({
+      type: SORT_REPOS_FAIL,
+      payload: {errMsg: 'Something went wrong. Please try again later'}
+    })
   }
 }

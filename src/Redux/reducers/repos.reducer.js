@@ -1,4 +1,11 @@
-import { GET_REPOS_FAIL, GET_REPOS_REQUEST, GET_REPOS_SUCCESS, SORT_REPOS_REQUEST, SORT_REPOS_SUCCESS } from "../actions/action.types";
+import { 
+  GET_REPOS_FAIL, 
+  GET_REPOS_REQUEST, 
+  GET_REPOS_SUCCESS, 
+  SORT_REPOS_FAIL, 
+  SORT_REPOS_REQUEST, 
+  SORT_REPOS_SUCCESS 
+} from "../actions/action.types";
 
 const initialState = {
   repos: [],
@@ -40,6 +47,13 @@ export const reposReducer = (state = initialState, action) => {
           ...state,
           loading: false, 
           repos: action.payload.repos,
+        }
+      case SORT_REPOS_FAIL:
+        return {
+          ...state,
+          loading: false,
+          repos: [],
+          error: action.payload
         }
     default:
       return state
