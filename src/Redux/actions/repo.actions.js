@@ -27,6 +27,7 @@ export const getRepos = (qStr) => async (dispatch, getState) => {
       type: GET_REPOS_FAIL,
       payload: {errMsg: 'Something went wrong. Please try again later'}
     })
+    console.log(error)
   }
 }
 

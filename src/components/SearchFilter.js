@@ -325,7 +325,7 @@ export default function SearchFilter() {
               <div className="user-name top-filter-item">
                 <label 
                   htmlFor="userName" 
-                  className={err.txtfield !== '' && formFields.userName !== '' ? 'txt-field-err' : ''}
+                  className={err.txtfield !== '' && formFields.userName !== '' && formFields.userName.length < 3 ? 'txt-field-err' : ''}
                 >User name:</label>
                 <input type="text" name="userName" onChange={handleTxt} value={formFields.userName} />
               </div>
@@ -333,14 +333,14 @@ export default function SearchFilter() {
                 <div className="language top-filter-item">
                   <label 
                     htmlFor="language" 
-                    className={err.txtfield !== '' && formFields.language !== '' ? 'txt-field-err' : ''}
+                    className={err.txtfield !== '' && formFields.language !== '' && formFields.language.length < 3 ? 'txt-field-err' : ''}
                   >Language:</label>
                   <input type="text" name="language" onChange={handleTxt} value={formFields.language} />
                 </div>
                 <div className="topic top-filter-item">
                   <label 
                     htmlFor="topic"
-                    className={err.txtfield !== '' && formFields.topic !== '' ? 'txt-field-err' : ''}
+                    className={err.txtfield !== '' && formFields.topic !== '' && formFields.topic.length < 3 ? 'txt-field-err' : ''}
                   >Topic:</label>
                   <input type="text" name="topic" onChange={handleTxt} value={formFields.topic} />
                 </div>
@@ -349,7 +349,7 @@ export default function SearchFilter() {
             <div className="org top-filter-bottom top-filter-item">
               <label 
                 htmlFor="organisation"
-                className={err.txtfield !== '' && formFields.org !== '' ? 'txt-field-err' : ''}
+                className={err.txtfield !== '' && formFields.org !== '' && formFields.org.length < 3 ? 'txt-field-err' : ''}
               >Organisation:</label>
               <input type="text" name="org" onChange={handleTxt} value={formFields.org} />
             </div>            
