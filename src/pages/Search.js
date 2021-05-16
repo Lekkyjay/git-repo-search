@@ -7,7 +7,7 @@ import SearchResults from '../components/SearchResults'
 
 export default function Search() {
   const repoState = useSelector((state) => state)
-  const { repos, loading } = repoState
+  const { repos, loading, error } = repoState
 
   const [currentPage, setCurrentPage] = useState(1)
   const reposPerPage = 5
@@ -31,7 +31,7 @@ export default function Search() {
       <SearchFilter />
       <div className="search-results-container container">
         <ResultsFilter total={repos?.length} />
-        <SearchResults repos={currentRepos} loading={loading} />
+        <SearchResults repos={currentRepos} loading={loading} error={error} />
         <Pagination 
           prevPage={prevPage}
           nextPage={nextPage}

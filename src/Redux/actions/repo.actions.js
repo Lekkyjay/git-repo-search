@@ -13,6 +13,9 @@ export const getRepos = (qStr) => async (dispatch, getState) => {
   try {
     const res = await fetch('https://api.github.com/search/repositories?q=' + qStr)
     const data = await res.json()
+    if (data.errors) {
+      throw new Error(data.message)
+    }
     const repos = data.items    
     history.push({qStr, repos})
     history.length > 10 && history.splice(0, 1)
@@ -26,9 +29,8 @@ export const getRepos = (qStr) => async (dispatch, getState) => {
   catch (error) {
     dispatch({
       type: GET_REPOS_FAIL,
-      payload: {errMsg: 'Something went wrong. Please try again later'}
+      payload: {errMsg: 'Something went wrong. Please try again later. ' + error.message }
     })
-    console.log(error)
   }
 }
 
@@ -40,6 +42,9 @@ export const sortRepos = (sortStr) => async (dispatch, getState) => {
   try {
     const res = await fetch('https://api.github.com/search/repositories?q=' + qStr + sortStr)
     const data = await res.json()
+    if (data.errors) {
+      throw new Error(data.message)
+    }
     const repos = data.items
 
     dispatch({
@@ -50,7 +55,7 @@ export const sortRepos = (sortStr) => async (dispatch, getState) => {
   catch (error) {
     dispatch({
       type: SORT_REPOS_FAIL,
-      payload: {errMsg: 'Something went wrong. Please try again later'}
+      payload: {errMsg: 'Something went wrong. Please try again later. ' + error.message }
     })
   }
 }
