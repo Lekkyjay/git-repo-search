@@ -155,7 +155,10 @@ export default function SearchFilter() {
         !formFields.inReadMe.checked)
       ) {
         console.log('simple mode')
-        const errMsg = {name: 'In checkbox:', msg: ' please select atleast one of the checkboxes'}
+        const errMsg = {
+          name: 'In checkbox:', 
+          msg: ' please select atleast one of the checkboxes'
+        }
         tempErrs.push(errMsg)
         setErrs(tempErrs)
     }
@@ -166,7 +169,10 @@ export default function SearchFilter() {
           !formFields.inReadMe.checked)
         ) {
             console.log('advanced mode 1')
-            const errMsg = {name: 'In checkbox:', msg: ' please select atleast one of the checkboxes'}
+            const errMsg = {
+              name: 'In checkbox:', 
+              msg: ' please select atleast one of the checkboxes'
+            }
             tempErrs.push(errMsg)
             setErrs(tempErrs)
         }
@@ -277,6 +283,7 @@ export default function SearchFilter() {
               <div className="search-by top-filter-item">
                 <label htmlFor="search-by">Search by:</label>
                 <input type="text" name="searchBy" onChange={handleTxt} value={formFields.searchBy} />
+                {errs.length > 0 && <span>hello</span>}
               </div>
               <div className="search-in">
                 <label htmlFor="in">In:</label>
@@ -286,25 +293,29 @@ export default function SearchFilter() {
               </div>
             </div> 
             <div className="top-filter-middle">
-              <div className="top-filter-item">
+              <div className="user-name top-filter-item">
                 <label htmlFor="userName">User name:</label>
                 <input type="text" name="userName" onChange={handleTxt} value={formFields.userName} />
+                {errs.length > 0 && <span>hello</span>}
               </div>
               <div className="lang-topic">
                 <div className="language top-filter-item">
                   <label htmlFor="language">Language:</label>
                   <input type="text" name="language" onChange={handleTxt} value={formFields.language} />
+                  {errs.length > 0 && <span>hello</span>}
                 </div>
                 <div className="topic top-filter-item">
                   <label htmlFor="topic">Topic:</label>
                   <input type="text" name="topic" onChange={handleTxt} value={formFields.topic} />
+                  {errs.length > 0 && <span>hello</span>}
                 </div>
               </div>
             </div>
-            <div className="top-filter-bottom top-filter-item">
+            <div className="org top-filter-bottom top-filter-item">
               <label htmlFor="organisation">Organisation:</label>
               <input type="text" name="org" onChange={handleTxt} value={formFields.org} />
-            </div>
+              {errs.length > 0 && <span>hello</span>}
+            </div>            
           </div>
 
           <div className="bottom-filter">

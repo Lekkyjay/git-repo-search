@@ -12,7 +12,11 @@ export default function History() {
       <div className="history-left">
         <p className="count">Total requests: {history.length}</p>
         {history && history.map((item, idx) => (
-          <div className="history-query active" key={idx} onClick={()=>setIndex(idx)}>
+          <div 
+            className={idx === index ? "history-query active" : "history-query"} 
+            key={idx} 
+            onClick={()=>setIndex(idx)}
+          >
             <p>{ item.qStr }</p>
           </div>
         ))}
