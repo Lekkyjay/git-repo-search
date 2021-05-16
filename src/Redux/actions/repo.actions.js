@@ -15,6 +15,7 @@ export const getRepos = (qStr) => async (dispatch, getState) => {
     const data = await res.json()
     const repos = data.items    
     history.push({qStr, repos})
+    history.length > 10 && history.splice(0, 1)
     localStorage.setItem('history', JSON.stringify(history))    
 
     dispatch({
