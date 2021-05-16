@@ -228,6 +228,29 @@ nav {
   align-items: center;
 }
 
+.top-filter-item.search-by,
+.top-filter-item.user-name,
+.top-filter-item.language,
+.top-filter-item.topic,
+.top-filter-item.org {
+  position: relative;
+}
+
+.top-filter-item.search-by span,
+.top-filter-item.user-name span,
+.top-filter-item.language span,
+.top-filter-item.topic span,
+.top-filter-item.org span {
+  position: absolute;
+  top: 22px;
+  left: 10%;
+  color: red;
+}
+
+.search-in {
+  margin-left: 5px;
+}
+
 .search-in,
 .lang-topic {
   display: flex;
@@ -359,19 +382,21 @@ nav {
   position: absolute;
   top: -100%;
   left: 50%;
-  width: 50%;
-  height: 50%;
+  width: 68%;
+  padding: 0 0 10px 14px;
+  height: 15%;
   transform: translate(-50%);
   background: #000;
   color: red;
   transition: all 0.5s ease-in;
+  z-index: 1;
 }
 
 .errors.show-errors {
   display: block;
-  top: 50%;
-  padding: 10px;
+  top: 22%;
   transition: all 0.5s ease-in;
+  z-index: 1;
 }
 
 .errors .close-errors {
@@ -381,6 +406,11 @@ nav {
   color: #fff;
   font-size: 20px;
 }
+
+.search-in .checkbox-error,
+.top-filter-item .txt-field-err {
+  border: 1px solid red;
+} 
 
 
 @media screen and (max-width: 920px) {

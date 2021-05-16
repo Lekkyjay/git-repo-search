@@ -8,9 +8,9 @@ import { FaTimes } from 'react-icons/fa'
 const Errors = ({errors, closeErrors}) => {
   return (
     <>
-      {errors.map(e => (      
-        <p key={e.name}>{e.name + ' ' + e.msg}</p>              
-    ))}
+      {Object.keys(errors).map((item, idx) => (
+        <p key={idx}>{errors[item]}</p>
+      ))}
     <FaTimes className="close-errors" onClick={closeErrors} />
     </>
   )
@@ -22,7 +22,7 @@ export default function SearchFilter() {
   const [createdBtw, setCreatedBtw] = useState(false)
   const [sizeBtw, setSizeBtw] = useState(false)
   const [queryString, setQueryString] = useState('react+in:name+user:lekkyjay')  
-  const [errs, setErrs] = useState([])
+  const [err, setErr] = useState({ searchBy: '', inCheckbox: '', txtfield: '' })
   const [showErrors, setShowErrors] = useState(false)
 
   const initialState = {
@@ -142,11 +142,16 @@ export default function SearchFilter() {
   }   
 
   const validateFormFields = () => {
+    setShowErrors(false)
+    setErr({ searchBy: '', inCheckbox: '', txtfield: '' })
+
     if (formFields.searchBy.trim().length < 3) {
-      const errMsg = {name: 'searchBy', msg: ' field must be minimum 3 characters'}
+      const errMsg = {searchBy: 'Search by field must be min 3 chars'}
       tempErrs.push(errMsg)
-      setErrs(tempErrs)
-      console.log('searchBy error')
+      setErr(err => ({...err, ...errMsg}))
+
+      // setErrs(tempErrs)
+      // console.log('searchBy error')
     }
     //simple mode
     if (!advanced && (
@@ -154,13 +159,19 @@ export default function SearchFilter() {
         !formFields.inDesc.checked && 
         !formFields.inReadMe.checked)
       ) {
-        console.log('simple mode')
-        const errMsg = {
-          name: 'In checkbox:', 
-          msg: ' please select atleast one of the checkboxes'
-        }
-        tempErrs.push(errMsg)
-        setErrs(tempErrs)
+          const errMsg = { inCheckbox: 'Please select atleast one of the In: checkboxes' }
+          tempErrs.push(errMsg)
+          setErr(err => ({...err, ...errMsg}))
+
+
+
+        // console.log('simple mode')
+        // const errMsg = { 
+        //   name: 'In checkbox:', 
+        //   msg: ' please select atleast one of the checkboxes'
+        // }
+        // tempErrs.push(errMsg)
+        // setErrs(tempErrs)
     }
     //advanced mode 1
     if (advanced && (
@@ -168,13 +179,17 @@ export default function SearchFilter() {
           !formFields.inDesc.checked && 
           !formFields.inReadMe.checked)
         ) {
-            console.log('advanced mode 1')
-            const errMsg = {
-              name: 'In checkbox:', 
-              msg: ' please select atleast one of the checkboxes'
-            }
+            const errMsg = { inCheckbox: 'Please select atleast one of the In: checkboxes' }
             tempErrs.push(errMsg)
-            setErrs(tempErrs)
+            setErr(err => ({...err, ...errMsg}))
+
+            // console.log('advanced mode 1')
+            // const errMsg = {
+            //   name: 'In checkbox:', 
+            //   msg: ' please select atleast one of the checkboxes'
+            // }
+            // tempErrs.push(errMsg)
+            // setErrs(tempErrs)
         }
     //advanced mode 2
     if (advanced && (
@@ -183,15 +198,21 @@ export default function SearchFilter() {
       (formFields.topic !== '' && formFields.topic.length < 3) ||
       (formFields.org !== '' && formFields.org.length < 3)      
     )) {
-      console.log('advanced mode 2')
-      const errMsg = {
-        name: 'Textfields:', 
-        msg: '"UserName, Language, Topic or Organisation" must be min 3 chars when provided'
-      }
-      tempErrs.push(errMsg)
-      setErrs(tempErrs)
-      console.log('errs:', errs)
-      console.log('tempErrs:', tempErrs)
+          const errMsg = { 
+            txtfield: 'Username, Language, Topic or Organisation text field must be min 3 chars when provided' 
+          }
+          tempErrs.push(errMsg)
+          setErr(err => ({...err, ...errMsg}))
+
+      // console.log('advanced mode 2')
+      // const errMsg = {
+      //   name: 'Textfields:', 
+      //   msg: '"UserName, Language, Topic or Organisation" must be min 3 chars when provided'
+      // }
+      // tempErrs.push(errMsg)
+      // setErrs(tempErrs)
+      // console.log('errs:', errs)
+      // console.log('tempErrs:', tempErrs)
     }
     // if (tempErrs.length !== 0) {
     //   setShowErrors(true)
@@ -250,7 +271,7 @@ export default function SearchFilter() {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    tempErrs = []
+    // tempErrs = []
     validateFormFields()
     if (tempErrs.length !== 0) {
       setShowErrors(true)
@@ -273,20 +294,28 @@ export default function SearchFilter() {
   return (
     <>
     {/* {errs.length > 0 ? errs[0].name + errs[0].msg : ''} */}
-      <section className={ advanced ? "filters container" : "filters container closed" }>
-        <div className={showErrors ? "errors show-errors" : "errors"}>
-          {errs.length > 0 && <Errors errors={errs} closeErrors={closeErrors} />}
+    <div className={showErrors ? "errors show-errors" : "errors"}>
+          {showErrors && <Errors errors={err} closeErrors={closeErrors} />}
         </div>
+      <section className={ advanced ? "filters container" : "filters container closed" }>
+        
         <form onSubmit={handleSubmit} className="search-filter-form">
           <div className="top-filter">
             <div className="top-filter-top">
               <div className="search-by top-filter-item">
-                <label htmlFor="search-by">Search by:</label>
+                <label 
+                  htmlFor="search-by"
+                  className={err.searchBy !== '' && formFields.searchBy.length < 3 ? 'txt-field-err' : ''}
+                >Search by:</label>
                 <input type="text" name="searchBy" onChange={handleTxt} value={formFields.searchBy} />
-                {errs.length > 0 && <span>hello</span>}
               </div>
               <div className="search-in">
-                <label htmlFor="in">In:</label>
+                <label 
+                  htmlFor="in" 
+                  className={err.inCheckbox !== '' && (
+                    formFields.inName.checked === false && formFields.inDesc.checked === false && formFields.inReadMe.checked === false
+                  ) ? 'checkbox-error' : ''}
+                >In:</label>
                 <input type="checkbox" name="inName" onChange={handleCheckbox} value="+in:name" checked={formFields.inName.checked} />name
                 <input type="checkbox" name="inDesc" onChange={handleCheckbox} value="+in:description" checked={formFields.inDesc.checked} />description
                 <input type="checkbox" name="inReadMe" onChange={handleCheckbox} value="+in:readMe" checked={formFields.inReadMe.checked} />readme
@@ -294,27 +323,35 @@ export default function SearchFilter() {
             </div> 
             <div className="top-filter-middle">
               <div className="user-name top-filter-item">
-                <label htmlFor="userName">User name:</label>
+                <label 
+                  htmlFor="userName" 
+                  className={err.txtfield !== '' && formFields.userName !== '' ? 'txt-field-err' : ''}
+                >User name:</label>
                 <input type="text" name="userName" onChange={handleTxt} value={formFields.userName} />
-                {errs.length > 0 && <span>hello</span>}
               </div>
               <div className="lang-topic">
                 <div className="language top-filter-item">
-                  <label htmlFor="language">Language:</label>
+                  <label 
+                    htmlFor="language" 
+                    className={err.txtfield !== '' && formFields.language !== '' ? 'txt-field-err' : ''}
+                  >Language:</label>
                   <input type="text" name="language" onChange={handleTxt} value={formFields.language} />
-                  {errs.length > 0 && <span>hello</span>}
                 </div>
                 <div className="topic top-filter-item">
-                  <label htmlFor="topic">Topic:</label>
+                  <label 
+                    htmlFor="topic"
+                    className={err.txtfield !== '' && formFields.topic !== '' ? 'txt-field-err' : ''}
+                  >Topic:</label>
                   <input type="text" name="topic" onChange={handleTxt} value={formFields.topic} />
-                  {errs.length > 0 && <span>hello</span>}
                 </div>
               </div>
             </div>
             <div className="org top-filter-bottom top-filter-item">
-              <label htmlFor="organisation">Organisation:</label>
+              <label 
+                htmlFor="organisation"
+                className={err.txtfield !== '' && formFields.org !== '' ? 'txt-field-err' : ''}
+              >Organisation:</label>
               <input type="text" name="org" onChange={handleTxt} value={formFields.org} />
-              {errs.length > 0 && <span>hello</span>}
             </div>            
           </div>
 
